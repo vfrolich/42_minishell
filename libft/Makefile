@@ -66,7 +66,8 @@ SRCS =	ft_memccpy.c \
 		get_next_line.c\
 		ft_strjoin_free.c\
 		ft_strjoin_free_one.c\
-		lst_add.c
+		lst_add.c\
+		ft_count_lst.c
 OBJ =   ft_memccpy.o \
         ft_memcpy.o  \
         ft_strchr.o  \
@@ -133,7 +134,8 @@ OBJ =   ft_memccpy.o \
 		get_next_line.o\
 		ft_strjoin_free.o\
 		ft_strjoin_free_one.o\
-		lst_add.o
+		lst_add.o\
+		ft_count_lst.o
 
 all: $(NAME)
 

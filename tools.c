@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentinfrolich <valentinfrolich@student.42.fr>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/18 14:36:27 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/18 19:41:58 by vfrolich         ###   ########.fr       */
+/*   Created: 2017/05/18 22:50:59 by valentinfrolich   #+#    #+#             */
+/*   Updated: 2017/05/19 00:33:14 by valentinfrolich  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,29 @@ char	**env_cpy(char **environ)
 		dest++;
 	}
 	return (tmp);
+}
+
+char	**lst_to_tab(t_list *env)
+{
+	char	**dest;
+	size_t	len;
+	t_list	*tmp;
+
+	tmp = env;
+	len = ft_count_lst(tmp);
+	if (!(dest = (char **)malloc(sizeof(char *) * (len + 1))))
+	{
+		ft_putstr_fd("malloc of char ** dest has failed", 2);
+		return (NULL);
+	}
+	dest[len] = NULL;
+	len = 0;
+	while (env)
+	{
+		dest[len] = ft_strjoin(FIELD, "=");
+		dest[len] = ft_strjoin_free_one(&dest[len], VALUE);
+		len++;
+		env = env->next;
+	}
+	return (&dest[0]);
 }

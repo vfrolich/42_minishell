@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentinfrolich <valentinfrolich@student.42.fr>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 17:19:57 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/18 11:46:03 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/05/18 23:42:06 by valentinfrolich  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #ifndef LIBFT_H
 # define LIBFT_H
 
@@ -106,5 +105,6 @@ int						get_next_line(const int fd, char **line);
 char					*ft_strjoin_free(char **s1, char **s2);
 char					*ft_strjoin_free_one(char **s1, char *s2);
 void					lst_add(t_list *lst, t_list **start);
+size_t					ft_count_lst(t_list	*lst);
 
 #endif
