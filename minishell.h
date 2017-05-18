@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:39:08 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/18 15:54:12 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/05/18 19:41:46 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ t_list			*get_env(char **env);
 int				add_env(char *name, char *value, t_list *lst);
 int				set_env(char *name, char *value, int overwrite, t_list *env);
 int				unset_env(char	*name, t_list *env);
+char			**env_cpy(char **enriron);
 
 #endif

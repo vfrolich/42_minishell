@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 19:58:10 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/18 15:56:28 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/05/18 19:03:04 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ t_env	*get_fields(char *env)
 	size = ft_strchr(env, '=') - env;
 	if (!(new->field = ft_strsub(env, 0, size)))
 	{
-		ft_putendl_fd("error: malloc of char * has failed", 2);
+		ft_putendl_fd("error: malloc of env.field(char *) has failed", 2);
 		exit(1);
 	}
 	length = ft_strlen(ft_strchr(env, '=') + 1);
 	size++;
 	if (!(new->value = ft_strsub(env, size, length)))
 	{
-		ft_putendl_fd("error: malloc of char * has failed", 2);
+		ft_putendl_fd("error: malloc of env.value(char *) has failed", 2);
 		exit(1);
 	}
 	return (new);
