@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentinfrolich <valentinfrolich@student.42.fr>+#+  +:+       +#+        */
+/*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 22:50:59 by valentinfrolich   #+#    #+#             */
-/*   Updated: 2017/05/19 00:33:14 by valentinfrolich  ###   ########.fr       */
+/*   Updated: 2017/05/22 17:30:06 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,18 @@ char	**lst_to_tab(t_list *env)
 		env = env->next;
 	}
 	return (&dest[0]);
+}
+
+void	free_tab(char **tab)
+{
+	int		i;
+
+	i = 0;
+	if (!tab)
+		return ;
+	while (tab[i])
+	{
+		ft_strdel(&tab[i]);
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 #    By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/10 16:36:01 by vfrolich          #+#    #+#              #
-#    Updated: 2017/05/18 14:36:44 by vfrolich         ###   ########.fr        #
+#    Updated: 2017/05/22 12:11:28 by vfrolich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ FLAGS           =	-Wall -Wextra -Werror
 LIB_PATH		=	libft
 LIB				=   $(LIB_PATH)/libft.a
 LIB_LINK		=	-Llibft -lft
-SRC				=	main.c env.c tools.c
+SRC				=	main.c env.c tools.c arg_handle.c
 HEADER			=	minishell.h
 OBJS			=	$(SRC:.c=.o)
 

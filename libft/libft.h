@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentinfrolich <valentinfrolich@student.42.fr>+#+  +:+       +#+        */
+/*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 17:19:57 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/18 23:42:06 by valentinfrolich  ###   ########.fr       */
+/*   Updated: 2017/05/22 17:28:24 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef LIBFT_H
 # define LIBFT_H
 

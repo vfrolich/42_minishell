@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_count_lst.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentinfrolich <valentinfrolich@student.42.fr>+#+  +:+       +#+        */
+/*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 22:51:53 by valentinfrolich   #+#    #+#             */
-/*   Updated: 2017/05/18 23:44:02 by valentinfrolich  ###   ########.fr       */
+/*   Updated: 2017/05/22 17:27:20 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_count_lst(t_list	*lst)
+size_t	ft_count_lst(t_list *lst)
 {
 	size_t	size;
 	t_list	*start;
