@@ -1,41 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   leaks_handle.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/10 16:36:36 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/23 18:58:35 by vfrolich         ###   ########.fr       */
+/*   Created: 2017/05/23 14:38:49 by vfrolich          #+#    #+#             */
+/*   Updated: 2017/05/23 18:32:56 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **environ)
+void	free_tab(char **tab)
 {
-	t_list	*lst;
-	char	*line;
+	int		i;
 
-	if (argc > 2)
+	i = 0;
+	if (!tab)
+		return ;
+	while (tab[i])
 	{
-		if (!ft_strcmp(argv[1], "AH"))
-			exit(1);
+		ft_strdel(&tab[i]);
+		i++;
 	}
-	lst = get_env(environ);
-	while (42)
+	free(tab);
+}
+
+void	free_env(t_list *env)
+{
+	t_list	*tmp;
+
+	while (env)
 	{
-		put_prompt();
-		line = ft_strnew(0);
-		get_next_line(0, &line);
-		read_entry(line, lst);
-		if (!ft_strcmp(line, "exit"))
-		{
-			free_env(lst);
-			ft_strdel(&line);
-			exit(0);
-		}
-		ft_strdel(&line);
+		tmp = env->next;
+		ft_strdel(&(((t_env *)env->content)->field));
+		ft_strdel(&(((t_env *)env->content)->value));
+		free(env->content);
+		free(env);
+		env = tmp;
 	}
-	return (0);
 }

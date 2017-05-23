@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 22:50:59 by valentinfrolich   #+#    #+#             */
-/*   Updated: 2017/05/22 17:30:06 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/05/23 14:40:21 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,6 @@ void	print_env(t_list *env)
 		env = env->next;
 	}
 	env = start;
-}
-
-void	free_env(t_list *env)
-{
-	if (((t_env *)env->content)->field)
-		ft_strdel(&(((t_env *)env->content)->field));
-	if (((t_env *)env->content)->value)
-		ft_strdel(&(((t_env *)env->content)->value));
-	free(env->content);
 }
 
 char	**env_cpy(char **environ)
@@ -82,18 +73,4 @@ char	**lst_to_tab(t_list *env)
 		env = env->next;
 	}
 	return (&dest[0]);
-}
-
-void	free_tab(char **tab)
-{
-	int		i;
-
-	i = 0;
-	if (!tab)
-		return ;
-	while (tab[i])
-	{
-		ft_strdel(&tab[i]);
-		i++;
-	}
 }

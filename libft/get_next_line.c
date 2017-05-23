@@ -6,115 +6,58 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/22 13:55:30 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/02/22 11:01:43 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/05/23 19:01:49 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_str_cut(t_mstr *mstr, char **line)
-{
-	char *tmp;
+#define ENDL '\n'
 
-	tmp = ft_strdup(mstr->str);
-	if (*tmp == '\n')
-	{
-		*line = ft_strnew(0);
-		return ;
-	}
-	*line = tmp;
-	if (ft_strchr(tmp, '\n'))
-		*(ft_strchr(tmp, '\n')) = '\0';
+int        read_from_fd_into_stock(int const fd, char **stock)
+{
+    static char    buff[BUFF_SIZE + 1] = { ENDL };
+    int            read_bytes;
+    char        *nstr;
+
+    read_bytes = read(fd, buff, BUFF_SIZE);
+    if (read_bytes > 0)
+    {
+        buff[read_bytes] = '\0';
+        nstr = ft_strjoin(*stock, buff);
+        if (!nstr)
+            return (-1);
+        free(*stock);
+        *stock = nstr;
+    }
+    return (read_bytes);
 }
 
-char	*join_free(t_mstr *mstr)
+int        get_next_line(int const fd, char **line)
 {
-	char	*dst;
+    static char    *stock = NULL;
+    char        *endl_index;
+    int            ret;
 
-	if (!mstr->str || !mstr->buff)
-		return (NULL);
-	dst = ft_strnew(ft_strlen(mstr->str) + ft_strlen(mstr->buff));
-	if (!dst)
-		return (NULL);
-	dst = ft_strcpy(dst, mstr->str);
-	free(mstr->str - mstr->diff);
-	dst = ft_strcat(dst, mstr->buff);
-	ft_strdel(&mstr->buff);
-	return (dst);
-}
-
-int		return_line(char **line, t_mstr *mstr, int ret)
-{
-	if (ft_strchr(mstr->str, '\n'))
-	{
-		ft_str_cut(mstr, line);
-		if ((ft_strchr(mstr->str, '\n') + 1))
-		{
-			mstr->diff = (ft_strchr(mstr->str, '\n') + 1) - mstr->str;
-			mstr->str = ft_strchr(mstr->str, '\n') + 1;
-		}
-		return (1);
-	}
-	if (!ret)
-	{
-		ft_str_cut(mstr, line);
-		mstr->flag = 0;
-		return (1);
-	}
-	mstr->diff = 0;
-	return (0);
-}
-
-int		ft_return(t_mstr *mstr, int ret, char **line)
-{
-	if (ret == -1 || !mstr->str)
-	{
-		mstr->diff = 0;
-		mstr->flag = 1;
-		if (mstr->str)
-			ft_strdel(&mstr->str);
-		*line = ft_strnew(0);
-		return (-1);
-	}
-	if (!mstr->flag && ft_strlen(mstr->str))
-	{
-		mstr->str = ft_strnew(0);
-		return (1);
-	}
-	if (!mstr->flag)
-	{
-		mstr->diff = 0;
-		mstr->flag = 1;
-		ft_strdel(&mstr->str);
-		*line = ft_strnew(0);
-		return (0);
-	}
-	return (1);
-}
-
-int		get_next_line(int fd, char **line)
-{
-	static t_mstr	mstr;
-	int				ret;
-
-	if (fd < 0 || !line || BUFF_SIZE < 1)
-		return (-1);
-	ret = 1;
-	if (!mstr.str)
-	{
-		mstr.str = ft_strnew(0);
-		mstr.flag = 1;
-		mstr.diff = 0;
-	}
-	while (ret && mstr.flag)
-	{
-		mstr.buff = ft_strnew(BUFF_SIZE);
-		if ((ret = read(fd, mstr.buff, BUFF_SIZE)) < 0)
-			return (ft_return(&mstr, ret, line));
-		mstr.buff[ret] = '\0';
-		mstr.str = join_free(&mstr);
-		if ((return_line(line, &mstr, ret)))
-			return (ft_return(&mstr, ret, line));
-	}
-	return (ft_return(&mstr, ret, line));
+    if (!stock && (stock = (char *)ft_memalloc(sizeof(char))) == NULL)
+        return (-1);
+    endl_index = ft_strchr(stock, ENDL);
+    while (endl_index == NULL)
+    {
+        ret = read_from_fd_into_stock(fd, &stock);
+        if (ret == 0 && \
+            ((endl_index = ft_strchr(stock, '\0')) == stock))
+            return (0);
+        else if (ret < 0)
+            return (-1);
+        else
+            endl_index = ft_strchr(stock, ENDL);
+    }
+    *line = ft_strsub(stock, 0, endl_index - stock);
+    if (!*line)
+        return (-1);
+    endl_index = ft_strdup(endl_index + 1);
+    free(stock);
+    stock = endl_index;
+    return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 12:11:11 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/22 17:24:40 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/05/23 18:59:50 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,36 @@ char	*search_in_paths(t_list *env, char *bin)
 		if (dest)
 		{
 			free_tab(paths);
-			free(paths);
 			return (dest);
 		}
 		i++;
 	}
 	free_tab(paths);
-	free(paths);
 	return (NULL);
+}
+
+void	read_entry(char *line, t_list *env)
+{
+	char	**arg;
+	char	*path;
+	char	**envi;
+
+	if (!ft_strlen(line))
+		return ;
+	arg = ft_whitespace(line);
+	if (!arg)
+		return ;
+	path = search_in_paths(env, arg[0]);
+	if (!path)
+	{
+		ft_putstr_fd("minishell: command not found: ", 2);
+		ft_putendl_fd(arg[0], 2);
+		free_tab(arg);
+		return ;
+	}
+	envi = lst_to_tab(env);
+	process_manager(path, arg, envi);
+	free_tab(arg);
+	free_tab(envi);
+	ft_strdel(&path);
 }

@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 19:58:10 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/22 12:10:29 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/05/23 17:44:42 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,13 @@ t_list	*get_env(char **env)
 
 	new_env = get_fields(*env);
 	start = ft_lstnew(new_env, sizeof(t_env));
+	free(new_env);
 	env++;
 	while (*env)
 	{
 		new_env = get_fields(*env);
-		new = ft_lstnew(new_env, (sizeof(t_env)));
+		new = ft_lstnew(new_env, sizeof(t_env));
+		free(new_env);
 		lst_add(new, &start);
 		env++;
 	}
