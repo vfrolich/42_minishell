@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:39:08 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/24 18:25:42 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/05/24 21:27:13 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,20 @@ typedef struct	s_env{
 	char		*value;
 }				t_env;
 
-// typedef	struct  s_cmd{
-// 	char	*name
-// //https://stackoverflow.com/questions/840501/how-do-function-pointers-in-c-work
-
-// };				t_cmd;
+typedef struct	s_cmd{
+	
+	char		*name;
+	void	(*fptr)();
+}				t_cmd;
 
 char			*get_cdir();
+void			ft_echo(char *str);
 char			*home_handle(t_list	*env);
 void			put_prompt(t_list *env);
 void			free_env(t_list *env);
 void			free_tab(char **tab);
 void			print_env(t_list *env);
+t_cmd			**cmd_init();
 t_env			*get_fields(char *env);
 t_list			*get_env(char **env);
 int				add_env(char *name, char *value, t_list *lst);

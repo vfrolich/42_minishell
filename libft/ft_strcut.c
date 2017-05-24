@@ -1,41 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strcut.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/10 16:36:36 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/24 21:28:49 by vfrolich         ###   ########.fr       */
+/*   Created: 2017/05/24 19:12:37 by vfrolich          #+#    #+#             */
+/*   Updated: 2017/05/24 19:55:37 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **environ)
+char	*ft_strcut(char *str, char c)
 {
-	t_list	*lst;
-	char	*line;
-	t_cmd	**tab;
+	size_t	diff;
+	char	*tmp;
+	int		i;
 
-	if (argc > 2)
+	tmp = str;
+	diff = 0;
+	while (*tmp)
 	{
-		if (!ft_strcmp(argv[1], "AH"))
-			exit(1);
+		if (*tmp == c)
+			diff++;
+		tmp++;
 	}
-	lst = get_env(environ);
-	while (42)
+	diff = ft_strlen(str) - diff;
+	tmp = ft_strnew(diff);
+	diff = 0;
+	i = 0;
+	while (str[diff])
 	{
-		put_prompt(lst);
-		get_next_line(0, &line);
-		if (!ft_strcmp(line, "exit"))
+		if (str[diff] != c)
 		{
-			free_env(lst);
-			ft_strdel(&line);
-			exit(0);
+			tmp[i] = str[diff];
+			i++;
 		}
-		read_entry(line, lst);
-		ft_strdel(&line);
+		str++;
 	}
-	return (0);
+	return (tmp);
 }
