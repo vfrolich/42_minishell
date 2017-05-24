@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 22:50:59 by valentinfrolich   #+#    #+#             */
-/*   Updated: 2017/05/23 14:40:21 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/05/24 18:37:16 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,26 @@ char	**env_cpy(char **environ)
 	return (tmp);
 }
 
+char	*get_env_value(t_list *env, char *field)
+{
+	t_list	*tmp;
+	char	*dest;
+
+	tmp = env;
+	while (env)
+	{
+		if (!ft_strcmp(field, FIELD))
+		{
+			dest = ft_strdup(VALUE);
+			env = tmp;
+			return (dest);
+		}
+		env = env->next;
+	}
+	env = tmp;
+	return (NULL);
+}
+
 char	**lst_to_tab(t_list *env)
 {
 	char	**dest;
@@ -61,7 +81,7 @@ char	**lst_to_tab(t_list *env)
 	if (!(dest = (char **)malloc(sizeof(char *) * (len + 1))))
 	{
 		ft_putstr_fd("malloc of char ** dest has failed", 2);
-		return (NULL);
+		exit(1);
 	}
 	dest[len] = NULL;
 	len = 0;

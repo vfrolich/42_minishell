@@ -1,40 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/10 16:36:36 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/24 18:25:28 by vfrolich         ###   ########.fr       */
+/*   Created: 2017/05/24 15:42:14 by vfrolich          #+#    #+#             */
+/*   Updated: 2017/05/24 18:15:32 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **environ)
-{
-	t_list	*lst;
-	char	*line;
 
-	if (argc > 2)
-	{
-		if (!ft_strcmp(argv[1], "AH"))
-			exit(1);
-	}
-	lst = get_env(environ);
-	while (42)
-	{
-		put_prompt(lst);
-		get_next_line(0, &line);
-		read_entry(line, lst);
-		if (!ft_strcmp(line, "exit"))
-		{
-			free_env(lst);
-			ft_strdel(&line);
-			exit(0);
-		}
-		ft_strdel(&line);
-	}
-	return (0);
+
+void	echo(char *str)
+{
+	ft_putendl(str);
 }
+
