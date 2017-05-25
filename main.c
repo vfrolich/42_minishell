@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:36:36 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/24 21:28:49 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/05/25 12:33:51 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	main(int argc, char **argv, char **environ)
 {
 	t_list	*lst;
 	char	*line;
-	t_cmd	**tab;
 
 	if (argc > 2)
 	{

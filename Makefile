@@ -6,7 +6,7 @@
 #    By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/10 16:36:01 by vfrolich          #+#    #+#              #
-#    Updated: 2017/05/24 15:42:40 by vfrolich         ###   ########.fr        #
+#    Updated: 2017/05/25 12:56:00 by vfrolich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ LIB_PATH		=	libft
 LIB				=   $(LIB_PATH)/libft.a
 LIB_LINK		=	-Llibft -lft
 SRC				=	main.c env.c tools.c arg_handle.c prompt.c process.c\
-					leaks_handle.c builtins.c
+					leaks_handle.c builtins.c ft_cd.c
 
 HEADER			=	minishell.h
 OBJS			=	$(SRC:.c=.o)

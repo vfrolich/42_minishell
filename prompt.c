@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 11:25:12 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/24 18:44:47 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/05/25 19:06:21 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,24 @@ char	*home_handle(t_list	*env)
 		}
 		ft_strdel(&home);
 		ft_strdel(&dir);
-		ft_putchar('~');
+		ft_putstr("-> ~");
 		return (tmp);
 	}
 	return (dir);
 }
 
-char	*get_cdir()
+char	*get_cdir(t_list *env)
 {
-	char	*buff;
 	char	*cdir;
 
-	buff = ft_strnew(4096);
-	if (!buff)
+	cdir = NULL;
+	cdir = getcwd(cdir, 256);
+	if (!cdir)
 	{
+		if ((cdir = get_env_value(env, "OLDPWD")))
+			return (cdir);
 		ft_putendl_fd("malloc of char * has failed", 2);
 		exit(1);
 	}
-	cdir = getcwd(buff, 4096);
 	return (cdir);
 }

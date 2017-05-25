@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 19:58:10 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/23 17:44:42 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/05/25 15:17:22 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,14 @@ int		set_env(char *name, char *value, int overwrite, t_list *env)
 	start = env;
 	while (env->next)
 	{
-		if (!(ft_strcmp(((t_env *)env->content)->field, name)))
+		if (!(ft_strcmp(FIELD, name)))
 		{
 			flag = 1;
 			if (overwrite)
 			{
-				if (((t_env *)env->content)->value)
-					ft_strdel(&(((t_env *)env->content)->value));
-				((t_env *)env->content)->value = ft_strdup(value);
+				if (VALUE)
+					ft_strdel(&VALUE);
+				VALUE = ft_strdup(value);
 			}
 		}
 		env = env->next;
