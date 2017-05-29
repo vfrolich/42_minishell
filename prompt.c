@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 11:25:12 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/25 19:06:21 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/05/29 12:23:55 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	put_prompt(t_list *env)
 	ft_strdel(&pwd);
 }
 
-char	*home_handle(t_list	*env)
+char	*home_handle(t_list *env)
 {
 	char	*dir;
 	char	*home;
@@ -42,7 +42,7 @@ char	*home_handle(t_list	*env)
 		if (!(tmp = ft_strsub(dir, size, (ft_strlen(dir) - size))))
 		{
 			ft_putendl_fd("malloc of char * has failed", 2);
-			exit (1);
+			exit(1);
 		}
 		ft_strdel(&home);
 		ft_strdel(&dir);

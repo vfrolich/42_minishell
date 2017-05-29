@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:39:08 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/25 18:53:11 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/05/29 12:20:48 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ typedef struct	s_env{
 }				t_env;
 
 typedef struct	s_cmd{
-	
+
 	char		*name;
-	void	(*fptr)();
+	void		(*fptr)();
 }				t_cmd;
 
 char			*get_cdir();
@@ -53,10 +53,11 @@ char			**get_path(t_list *env);
 char			*search_bin(char *path, char *bin);
 char			*search_in_paths(t_list *env, char *bin);
 void			read_entry(char *line, t_list *env);
-void			process_manager(char *path,char **arg, char **envi);
+void			process_manager(char *path, char **arg, char **envi);
 void			ft_cd(t_list *env, char	**arg);
 void			err_cd_handle(t_list *env, char **arg);
 void			go_home(t_list *env);
 void			change_dir(t_list *env, char *path);
+void			prev_dir(t_list *env);
 
 #endif

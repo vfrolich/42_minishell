@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/25 12:54:46 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/25 20:16:15 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/05/29 12:14:34 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,39 @@ void	err_cd_handle(t_list *env, char **arg)
 	}
 	else if (arg[0] && arg[1])
 		ft_putendl_fd("cd: multiple directory entry", 2);
+	else if (access(arg[0], X_OK) == -1)
+	{
+		ft_putstr_fd("cd: permission denied: ", 2);
+		ft_putendl_fd(arg[0], 2);
+	}
 	else
 		change_dir(env, arg[0]);
 }
 
-void	ft_cd(t_list *env, char	**arg)
+void	prev_dir(t_list *env)
+{
+	char	*old;
+	char	*tmp;
+
+	tmp = get_cdir();
+	if (!(old = get_env_value(env, "OLDPWD")))
+	{
+		ft_putendl_fd("cd: OLDPWD not set", 2);
+		return ;
+	}
+	set_env("OLDPWD", tmp, 1, env);
+	change_dir(env, old);
+}
+
+void	ft_cd(t_list *env, char **arg)
 {
 	char	*home;
 	char	*tmp;
 
 	if (!ft_strlen(arg[0]) || !ft_strcmp(arg[0], "~"))
 		go_home(env);
+	else if (!ft_strcmp(arg[0], "-"))
+		prev_dir(env);
 	else
 	{
 		if (!ft_strncmp(arg[0], "~/", 2))

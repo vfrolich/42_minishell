@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 12:11:11 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/25 13:31:18 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/05/29 11:50:43 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	read_entry(char *line, t_list *env)
 		return ;
 	if (!ft_strcmp(arg[0], "cd"))
 	{
-		if (&arg[1])
+		if (arg[1])
 			ft_cd(env, &arg[1]);
 		free_tab(arg);
 		return ;

@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 19:12:37 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/24 19:55:37 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/05/29 12:09:28 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ char	*ft_strcut(char *str, char c)
 {
 	size_t	diff;
 	char	*tmp;
-	int		i;
 
 	tmp = str;
 	diff = 0;
@@ -28,14 +27,12 @@ char	*ft_strcut(char *str, char c)
 	}
 	diff = ft_strlen(str) - diff;
 	tmp = ft_strnew(diff);
-	diff = 0;
-	i = 0;
-	while (str[diff])
+	while (*str)
 	{
-		if (str[diff] != c)
+		if (*str != c)
 		{
-			tmp[i] = str[diff];
-			i++;
+			*tmp = *str;
+			tmp++;
 		}
 		str++;
 	}
