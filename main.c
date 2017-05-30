@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:36:36 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/25 12:33:51 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/05/30 16:00:26 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **environ)
 		if (!ft_strcmp(argv[1], "AH"))
 			exit(1);
 	}
-	lst = get_env(environ);
+	lst = env_init(environ);
 	while (42)
 	{
 		put_prompt(lst);

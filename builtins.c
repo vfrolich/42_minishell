@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 15:42:14 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/25 20:20:21 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/05/30 13:14:35 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_cmd	**cmd_init(void)
 	tab[i] = NULL;
 	return (tab);
 }
+
 
 void	ft_echo(char **str)
 {

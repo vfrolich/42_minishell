@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 19:58:10 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/25 15:17:22 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/05/30 15:09:57 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,20 @@ t_env	*get_fields(char *env)
 
 	if (!(new = (t_env *)malloc(sizeof(t_env))))
 	{
-		ft_putendl_fd("error: malloc of t_env * has failed", 2);
+		ft_putendl_fd("minishell: malloc of t_env * has failed", 2);
 		exit(1);
 	}
 	size = ft_strchr(env, '=') - env;
 	if (!(new->field = ft_strsub(env, 0, size)))
 	{
-		ft_putendl_fd("error: malloc of env.field(char *) has failed", 2);
+		ft_putendl_fd("minishell: malloc of env.field(char *) has failed", 2);
 		exit(1);
 	}
 	length = ft_strlen(ft_strchr(env, '=') + 1);
 	size++;
 	if (!(new->value = ft_strsub(env, size, length)))
 	{
-		ft_putendl_fd("error: malloc of env.value(char *) has failed", 2);
+		ft_putendl_fd("minishell: malloc of env.value(char *) has failed", 2);
 		exit(1);
 	}
 	return (new);
@@ -46,14 +46,14 @@ int		add_env(char *name, char *value, t_list *lst)
 
 	if (!(new_env = (t_env *)malloc(sizeof(t_env))))
 	{
-		ft_putendl_fd("error: malloc of t_env * has failed", 2);
+		ft_putendl_fd("minishell: malloc of t_env * has failed", 2);
 		return (1);
 	}
 	new_env->field = ft_strdup(name);
 	new_env->value = ft_strdup(value);
 	if (!(new = ft_lstnew(new_env, sizeof(t_env *))))
 	{
-		ft_putendl_fd("error: malloc of t_list * has failed", 2);
+		ft_putendl_fd("minishell: malloc of t_list * has failed", 2);
 		return (1);
 	}
 	lst->next = new;

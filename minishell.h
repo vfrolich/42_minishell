@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:39:08 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/29 12:20:48 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/05/30 15:59:10 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,14 @@ typedef struct	s_cmd{
 	void		(*fptr)();
 }				t_cmd;
 
+t_list 			*env_ex_nihilo();
+t_list			*env_init(char **env);
 char			*get_cdir();
 void			ft_echo(char **str);
 char			*home_handle(t_list	*env);
 void			put_prompt(t_list *env);
 void			free_env(t_list *env);
+void			free_envvar(t_env *envvar);
 void			free_tab(char **tab);
 void			print_env(t_list *env);
 t_cmd			**cmd_init();
@@ -59,5 +62,6 @@ void			err_cd_handle(t_list *env, char **arg);
 void			go_home(t_list *env);
 void			change_dir(t_list *env, char *path);
 void			prev_dir(t_list *env);
+
 
 #endif
