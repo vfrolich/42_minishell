@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 22:50:59 by valentinfrolich   #+#    #+#             */
-/*   Updated: 2017/05/25 13:40:45 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/01 18:22:06 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ void	print_env(t_list *env)
 	start = env;
 	while (env)
 	{
-		ft_putstr("for field : ");
 		ft_putstr(((t_env *)env->content)->field);
-		ft_putstr(" value is : ");
+		ft_putstr("=");
 		ft_putendl(((t_env *)env->content)->value);
 		env = env->next;
 	}
@@ -93,4 +92,19 @@ char	**lst_to_tab(t_list *env)
 		env = env->next;
 	}
 	return (&dest[0]);
+}
+
+int		command_launch(char *path, char **arg, t_list *env)
+{
+	char	**envi;
+
+	if (!path)
+	{
+		ft_putstr_fd("minishell: command not found: ", 2);
+		ft_putendl_fd(arg[0], 2);
+		free_tab(arg);
+		return (127);
+	}
+	envi = lst_to_tab(env);
+	return (process_manager(path, arg, envi));
 }

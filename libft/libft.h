@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 17:19:57 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/25 20:02:57 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/01 12:36:07 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,6 @@ char					*ft_strjoin_free(char **s1, char **s2);
 char					*ft_strjoin_free_one(char **s1, char *s2);
 void					lst_add(t_list *lst, t_list **start);
 size_t					ft_count_lst(t_list	*lst);
+int						ft_isnumber(char *str);
 
 #endif

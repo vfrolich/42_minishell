@@ -6,13 +6,13 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/30 13:59:08 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/30 15:59:49 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/01 18:20:21 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_cdir()
+char	*get_cdir(void)
 {
 	char	*cdir;
 
@@ -28,7 +28,7 @@ char	*get_cdir()
 
 t_env	*envvar_init(char *field, char *value)
 {
-	t_env 	*new;
+	t_env	*new;
 
 	if (!(new = (t_env *)malloc(sizeof(t_env))))
 	{
@@ -48,9 +48,9 @@ t_env	*envvar_init(char *field, char *value)
 	return (new);
 }
 
-t_list 	*env_ex_nihilo()
+t_list	*env_ex_nihilo(void)
 {
-	t_list 	*lst;
+	t_list	*lst;
 	t_list	*new;
 	t_env	*envvar;
 	char	*tmp;
@@ -58,15 +58,16 @@ t_list 	*env_ex_nihilo()
 	tmp = get_cdir();
 	envvar = envvar_init("PWD", tmp);
 	lst = ft_lstnew(envvar, sizeof(t_env));
-	free_envvar(envvar);
+	free(envvar);
 	envvar = envvar_init("SHLVL", "1");
 	new = ft_lstnew(envvar, sizeof(t_env));
-	free_envvar(envvar);
+	free(envvar);
 	lst_add(new, &lst);
-	envvar = envvar_init("_", ft_strjoin(tmp, "./minishell"));
+	tmp = ft_strjoin_free_one(&tmp, "./minishell");
+	envvar = envvar_init("_", tmp);
 	ft_strdel(&tmp);
 	new = ft_lstnew(envvar, sizeof(t_env));
-	free_envvar(envvar);
+	free(envvar);
 	lst_add(new, &lst);
 	return (lst);
 }
@@ -78,12 +79,17 @@ t_list	*env_init(char **env)
 	char	*tmp2;
 
 	if (!*env)
-		return (env_ex_nihilo());
+	{
+		envi = env_ex_nihilo();
+		return (envi);
+	}
 	envi = get_env(env);
-	tmp = ft_atoi(get_env_value(envi, "SHLVL"));
+	tmp2 = get_env_value(envi, "SHLVL");
+	tmp = ft_atoi(tmp2);
+	ft_strdel(&tmp2);
 	tmp++;
 	tmp2 = ft_itoa(tmp);
 	set_env("SHLVL", tmp2, 1, envi);
 	ft_strdel(&tmp2);
-	return (envi);	
+	return (envi);
 }

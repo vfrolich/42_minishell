@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdel.c                                        :+:      :+:    :+:   */
+/*   ft_isnumber.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfrolich <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/14 17:39:29 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/01 12:43:15 by vfrolich         ###   ########.fr       */
+/*   Created: 2017/06/01 14:17:56 by vfrolich          #+#    #+#             */
+/*   Updated: 2017/06/01 18:20:57 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_strdel(char **as)
+int		ft_isnumber(char *str)
 {
-	if (*as)
+	while (*str)
 	{
-		free(*as);
-		*as = NULL;
+		if (*str >= '0' && *str <= '9')
+			str++;
+		else
+			return (0);
 	}
+	return (1);
 }

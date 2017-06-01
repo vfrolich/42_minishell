@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 12:11:11 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/29 11:50:43 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/01 18:15:27 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,35 +78,25 @@ char	*search_in_paths(t_list *env, char *bin)
 	return (NULL);
 }
 
-void	read_entry(char *line, t_list *env)
+int		read_entry(char *line, t_list *env)
 {
 	char	**arg;
 	char	*path;
-	char	**envi;
+	int		i;
 
 	if (!ft_strlen(line))
-		return ;
+		return (0);
 	arg = ft_whitespace(line);
 	if (!arg)
-		return ;
-	if (!ft_strcmp(arg[0], "cd"))
+		return (0);
+	i = search_for_builtins(arg, env);
+	if (i == -1)
+		return (clean_exit(line, arg, env));
+	if (!i)
 	{
-		if (arg[1])
-			ft_cd(env, &arg[1]);
 		free_tab(arg);
-		return ;
+		return (i);
 	}
 	path = search_in_paths(env, arg[0]);
-	if (!path)
-	{
-		ft_putstr_fd("minishell: command not found: ", 2);
-		ft_putendl_fd(arg[0], 2);
-		free_tab(arg);
-		return ;
-	}
-	envi = lst_to_tab(env);
-	process_manager(path, arg, envi);
-	free_tab(arg);
-	free_tab(envi);
-	ft_strdel(&path);
+	return (command_launch(path, arg, env));
 }

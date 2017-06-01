@@ -6,38 +6,31 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 15:42:14 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/30 13:14:35 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/01 18:18:44 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_cmd	**cmd_init(void)
+int		search_for_builtins(char **arg, t_list *env)
 {
-	t_cmd	**tab;
-	int		i;
-
-	if (!(tab = (t_cmd **)malloc(sizeof(t_cmd *) * 7)))
+	if (!ft_strlen(arg[0]))
+		return (0);
+	if (!ft_strcmp(arg[0], "exit"))
+		return (-1);
+	if (!ft_strcmp(arg[0], "echo"))
+		return (ft_echo(&arg[1]));
+	if (!ft_strcmp(arg[0], "cd"))
+		return (ft_cd(env, &arg[1]));
+	if (!ft_strcmp(arg[0], "env"))
 	{
-		ft_putendl_fd("error: malloc (t_cmd **) has failed", 2);
-		exit(1);
+		print_env(env);
+		return (0);
 	}
-	i = 0;
-	while (i < 6)
-	{
-		if (!(tab[i] = (t_cmd *)malloc(sizeof(t_cmd))))
-		{
-			ft_putendl_fd("error: malloc (t_cmd **) has failed", 2);
-			exit(1);
-		}
-		i++;
-	}
-	tab[i] = NULL;
-	return (tab);
+	return (1);
 }
 
-
-void	ft_echo(char **str)
+int		ft_echo(char **str)
 {
 	if (!ft_strcmp(*str, "-n"))
 	{
@@ -47,7 +40,7 @@ void	ft_echo(char **str)
 			ft_putstr(*str);
 			str++;
 		}
-		return ;
+		return (0);
 	}
 	else
 	{
@@ -58,4 +51,5 @@ void	ft_echo(char **str)
 		}
 		ft_putchar('\n');
 	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 14:38:49 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/30 15:16:38 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/01 18:19:10 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	free_tab(char **tab)
 		i++;
 	}
 	free(tab);
-
 }
 
 void	free_env(t_list *env)
@@ -44,10 +43,21 @@ void	free_env(t_list *env)
 	}
 }
 
-void	free_envvar(t_env *envvar)
+int		clean_exit(char *line, char **arg, t_list *env)
 {
-	ft_strdel(&envvar->field);
-	ft_strdel(&envvar->value);
-	free(envvar);
-	envvar = NULL;
+	int tmp;
+
+	ft_strdel(&line);
+	free_env(env);
+	if (arg[1])
+	{
+		if (ft_strlen(arg[1]) && ft_isnumber(arg[1]))
+		{
+			tmp = ft_atoi(arg[1]);
+			free_tab(arg);
+			return (tmp);
+		}
+	}
+	free_tab(arg);
+	return (-1);
 }
