@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentinfrolich <valentinfrolich@student.42.fr>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:39:08 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/01 18:21:54 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/01 20:30:36 by valentinfrolich  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -18,6 +17,7 @@
 # include <dirent.h>
 # include "libft/libft.h"
 # include <sys/wait.h>
+# include <signal.h>
 # define FIELD ((t_env *)env->content)->field
 # define VALUE ((t_env *)env->content)->value
 

@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentinfrolich <valentinfrolich@student.42.fr>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:36:36 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/01 18:21:43 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/01 20:31:22 by valentinfrolich  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
 
 int	main(int argc, char **argv, char **environ)
@@ -26,6 +25,7 @@ int	main(int argc, char **argv, char **environ)
 		exit(1);
 	}
 	lst = env_init(environ);
+	signal(SIGINT, SIG_IGN);
 	while (42)
 	{
 		put_prompt(lst);
