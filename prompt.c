@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 11:25:12 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/30 14:52:23 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/02 19:25:33 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ char	*home_handle(t_list *env)
 		ft_putstr("-> ~");
 		return (tmp);
 	}
+	ft_strdel(&home);
 	return (dir);
 }

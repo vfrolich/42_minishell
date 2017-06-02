@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 19:58:10 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/05/30 15:09:57 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/02 19:05:27 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,17 @@ int		add_env(char *name, char *value, t_list *lst)
 	if (!(new_env = (t_env *)malloc(sizeof(t_env))))
 	{
 		ft_putendl_fd("minishell: malloc of t_env * has failed", 2);
-		return (1);
+		exit(1);
 	}
-	new_env->field = ft_strdup(name);
-	new_env->value = ft_strdup(value);
 	if (!(new = ft_lstnew(new_env, sizeof(t_env *))))
 	{
 		ft_putendl_fd("minishell: malloc of t_list * has failed", 2);
-		return (1);
+		exit(1);
 	}
+	((t_env *)new->content)->field = ft_strdup(name);
+	((t_env *)new->content)->value = ft_strdup(value);
 	lst->next = new;
+	free(new_env);
 	return (0);
 }
 
@@ -81,56 +82,49 @@ t_list	*get_env(char **env)
 	return (start);
 }
 
-int		set_env(char *name, char *value, int overwrite, t_list *env)
+int		set_env(char *name, char *value, t_list *env)
 {
-	int		flag;
 	t_list	*start;
 
-	flag = 0;
 	start = env;
+	if (!value)
+		return (1);
 	while (env->next)
 	{
-		if (!(ft_strcmp(FIELD, name)))
+		if ((!ft_strcmp(FIELD, name)))
 		{
-			flag = 1;
-			if (overwrite)
-			{
-				if (VALUE)
-					ft_strdel(&VALUE);
-				VALUE = ft_strdup(value);
-			}
+			ft_strdel(&VALUE);
+			VALUE = ft_strdup(value);
+			env = start;
+			return (0);
 		}
 		env = env->next;
 	}
-	if (!flag)
-		if (add_env(name, value, env))
-			return (-1);
+	add_env(name, value, env);
 	env = start;
 	return (0);
 }
 
 int		unset_env(char *name, t_list *env)
 {
-	int		flag;
 	t_list	*tmp;
 	t_list	*start;
 
-	flag = 0;
 	start = env;
+	if (!name)
+		return (1);
 	while (env->next)
 	{
 		if (!(ft_strcmp(((t_env *)env->next->content)->field, name)))
 		{
-			flag = 1;
 			tmp = env->next;
 			env->next = env->next->next;
-			free_env(tmp);
-			free(tmp);
+			free_env_one(tmp);
+			env = start;
+			return (0);
 		}
 		env = env->next;
 	}
 	env = start;
-	if (flag)
-		return (0);
-	return (-1);
+	return (1);
 }

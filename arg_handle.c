@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 12:11:11 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/01 18:15:27 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/02 19:34:27 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,25 +78,26 @@ char	*search_in_paths(t_list *env, char *bin)
 	return (NULL);
 }
 
-int		read_entry(char *line, t_list *env)
+void	read_entry(char *line, t_list *env)
 {
 	char	**arg;
 	char	*path;
 	int		i;
 
 	if (!ft_strlen(line))
-		return (0);
+		return ;
 	arg = ft_whitespace(line);
 	if (!arg)
-		return (0);
+		return ;
 	i = search_for_builtins(arg, env);
 	if (i == -1)
-		return (clean_exit(line, arg, env));
-	if (!i)
+		exit(clean_exit(arg));
+	if (!i || i == 1)
 	{
 		free_tab(arg);
-		return (i);
+		return ;
 	}
 	path = search_in_paths(env, arg[0]);
-	return (command_launch(path, arg, env));
+	command_launch(path, arg, env);
+	return ;
 }

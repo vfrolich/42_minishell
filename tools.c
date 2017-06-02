@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 22:50:59 by valentinfrolich   #+#    #+#             */
-/*   Updated: 2017/06/01 18:22:06 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/02 18:56:03 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	print_env(t_list *env)
 	start = env;
 	while (env)
 	{
-		ft_putstr(((t_env *)env->content)->field);
+		ft_putstr(FIELD);
 		ft_putstr("=");
-		ft_putendl(((t_env *)env->content)->value);
+		ft_putendl(VALUE);
 		env = env->next;
 	}
 	env = start;

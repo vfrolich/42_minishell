@@ -6,11 +6,12 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/25 12:54:46 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/01 18:21:24 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/02 19:10:29 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
 int		go_home(t_list *env)
 {
@@ -30,8 +31,10 @@ int		go_home(t_list *env)
 	}
 	old = get_cdir();
 	chdir(home);
-	set_env("OLDPWD", old, 1, env);
-	set_env("PWD", home, 1, env);
+	unset_env("OLDPWD", env);
+	set_env("OLDPWD", old, env);
+	unset_env("PWD", env);
+	set_env("PWD", home, env);
 	ft_strdel(&home);
 	ft_strdel(&old);
 	return (0);
@@ -43,12 +46,14 @@ int		change_dir(t_list *env, char *path)
 	char	*tmp;
 
 	old = get_cdir();
+	unset_env("OLDPWD", env);
+	set_env("OLDPWD", old, env);
+	old ? ft_strdel(&old) : NULL;
 	chdir(path);
 	tmp = get_cdir();
-	set_env("OLDPWD", old, 1, env);
-	set_env("PWD", tmp, 1, env);
+	unset_env("PWD", env);
+	set_env("PWD", tmp, env);
 	ft_strdel(&tmp);
-	ft_strdel(&old);
 	return (0);
 }
 
@@ -86,10 +91,18 @@ int		prev_dir(t_list *env)
 	if (!(old = get_env_value(env, "OLDPWD")))
 	{
 		ft_putendl_fd("cd: OLDPWD not set", 2);
+		ft_strdel(&tmp);
 		return (1);
 	}
-	set_env("OLDPWD", tmp, 1, env);
-	return (change_dir(env, old));
+	ft_putendl(old);
+	unset_env("OLDPWD", env);
+	set_env("OLDPWD", tmp, env);
+	ft_strdel(&tmp);
+	chdir(old);
+	unset_env("PWD", env);
+	set_env("PWD", old, env);
+	ft_strdel(&old);
+	return (0);
 }
 
 int		ft_cd(t_list *env, char **arg)

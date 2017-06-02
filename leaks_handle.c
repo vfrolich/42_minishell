@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 14:38:49 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/01 18:19:10 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/02 19:13:30 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,25 @@ void	free_env(t_list *env)
 	}
 }
 
-int		clean_exit(char *line, char **arg, t_list *env)
+void	free_env_one(t_list *env)
+{
+	ft_strdel(&FIELD);
+	ft_strdel(&VALUE);
+	free(env->content);
+	free(env);
+}
+
+int		clean_exit(char **arg)
 {
 	int tmp;
 
-	ft_strdel(&line);
-	free_env(env);
 	if (arg[1])
 	{
 		if (ft_strlen(arg[1]) && ft_isnumber(arg[1]))
 		{
 			tmp = ft_atoi(arg[1]);
-			free_tab(arg);
 			return (tmp);
 		}
 	}
-	free_tab(arg);
-	return (-1);
+	return (0);
 }

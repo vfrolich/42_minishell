@@ -6,21 +6,26 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/30 13:59:08 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/01 18:20:21 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/02 19:32:18 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_cdir(void)
+char	*get_cdir(t_list *env)
 {
 	char	*cdir;
+	char	*old;
 
 	cdir = NULL;
 	cdir = getcwd(cdir, 256);
 	if (!cdir)
 	{
-		ft_putendl_fd("malloc of char * has failed", 2);
+		if ((old = get_env_value(env, "OLDPWD")))
+			return (old);
+		if ((old = get_env_value(env, "HOME")))
+			return (old);
+		ft_putendl_fd("minishell: neither OLDPWD nor OLDPWD are set", 2);
 		exit(1);
 	}
 	return (cdir);
@@ -55,7 +60,7 @@ t_list	*env_ex_nihilo(void)
 	t_env	*envvar;
 	char	*tmp;
 
-	tmp = get_cdir();
+	tmp = get_cdir(NULL);
 	envvar = envvar_init("PWD", tmp);
 	lst = ft_lstnew(envvar, sizeof(t_env));
 	free(envvar);
@@ -84,12 +89,13 @@ t_list	*env_init(char **env)
 		return (envi);
 	}
 	envi = get_env(env);
+	unset_env("OLDPWD", envi);
 	tmp2 = get_env_value(envi, "SHLVL");
 	tmp = ft_atoi(tmp2);
 	ft_strdel(&tmp2);
 	tmp++;
 	tmp2 = ft_itoa(tmp);
-	set_env("SHLVL", tmp2, 1, envi);
+	set_env("SHLVL", tmp2, envi);
 	ft_strdel(&tmp2);
 	return (envi);
 }

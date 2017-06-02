@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentinfrolich <valentinfrolich@student.42.fr>+#+  +:+       +#+        */
+/*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 15:42:14 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/01 21:10:56 by valentinfrolich  ###   ########.fr       */
+/*   Updated: 2017/06/02 19:34:38 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
 int		search_for_builtins(char **arg, t_list *env)
@@ -26,7 +27,11 @@ int		search_for_builtins(char **arg, t_list *env)
 		print_env(env);
 		return (0);
 	}
-	return (1);
+	if (!ft_strcmp(arg[0], "unsetenv"))
+		return (unset_env(arg[1], env));
+	if (!ft_strcmp(arg[0], "setenv"))
+		return (set_env(arg[1], arg[2], env));
+	return (2);
 }
 
 int		ft_echo(char **str)
