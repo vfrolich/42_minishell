@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 22:50:59 by valentinfrolich   #+#    #+#             */
-/*   Updated: 2017/06/02 18:56:03 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/03 18:03:14 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	print_env(t_list *env)
 	start = env;
 	while (env)
 	{
-		ft_putstr(FIELD);
+		ft_putstr(((t_env *)env->content)->field);
 		ft_putstr("=");
-		ft_putendl(VALUE);
+		ft_putendl(((t_env *)env->content)->value);
 		env = env->next;
 	}
 	env = start;
@@ -57,9 +57,9 @@ char	*get_env_value(t_list *env, char *field)
 	tmp = env;
 	while (env)
 	{
-		if (!ft_strcmp(field, FIELD))
+		if (!ft_strcmp(field, ((t_env *)env->content)->field))
 		{
-			dest = ft_strdup(VALUE);
+			dest = ft_strdup(((t_env *)env->content)->value);
 			env = tmp;
 			return (dest);
 		}
@@ -86,8 +86,9 @@ char	**lst_to_tab(t_list *env)
 	len = 0;
 	while (env)
 	{
-		dest[len] = ft_strjoin(FIELD, "=");
-		dest[len] = ft_strjoin_free_one(&dest[len], VALUE);
+		dest[len] = ft_strjoin(((t_env *)env->content)->field, "=");
+		dest[len] = ft_strjoin_free_one(&dest[len],
+			((t_env *)env->content)->value);
 		len++;
 		env = env->next;
 	}
@@ -98,6 +99,12 @@ int		command_launch(char *path, char **arg, t_list *env)
 {
 	char	**envi;
 
+	if (exec_check(path) == 2)
+	{
+		free_tab(arg);
+		ft_strdel(&path);
+		return (-1);
+	}
 	if (!path)
 	{
 		ft_putstr_fd("minishell: command not found: ", 2);

@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 12:28:26 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/02 11:09:36 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/03 17:09:39 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ int		process_manager(char *path, char **arg, char **env)
 		wait(&status);
 	free_tab(arg);
 	free_tab(env);
-	ft_strdel(&path);
+	path ? ft_strdel(&path) : NULL;
 	return (status);
 }

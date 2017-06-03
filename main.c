@@ -6,16 +6,39 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:36:36 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/02 17:08:37 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/03 18:01:17 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **environ)
+void	minishell(char **environ, int ret, char *line)
 {
 	t_list	*lst;
+	char	**args;
+	int		i;
+
+	lst = env_init(environ);
+	while (42)
+	{
+		put_prompt(lst);
+		get_next_line(0, &line);
+		args = ft_strsplit(line, ';');
+		i = 0;
+		while (args[i])
+		{
+			ret = read_entry(args[i], lst, ret);
+			i++;
+		}
+		*args ? free_tab(args) : NULL;
+		ft_strdel(&line);
+	}
+}
+
+int		main(int argc, char **argv, char **environ)
+{
 	char	*line;
+	int		ret;
 
 	if (argc > 1)
 	{
@@ -23,14 +46,9 @@ int	main(int argc, char **argv, char **environ)
 		ft_putendl_fd(argv[0], 2);
 		exit(1);
 	}
-	lst = env_init(environ);
+	ret = 0;
+	line = NULL;
 	signal(SIGINT, SIG_IGN);
-	while (42)
-	{
-		put_prompt(lst);
-		get_next_line(0, &line);
-		read_entry(line, lst);
-		ft_strdel(&line);
-	}
+	minishell(environ, ret, line);
 	return (0);
 }

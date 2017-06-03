@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 14:38:49 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/02 19:13:30 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/03 17:59:27 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_tab(char **tab)
 	int		i;
 
 	i = 0;
-	if (!tab)
+	if (!*tab)
 		return ;
 	while (tab[i])
 	{
@@ -45,13 +45,13 @@ void	free_env(t_list *env)
 
 void	free_env_one(t_list *env)
 {
-	ft_strdel(&FIELD);
-	ft_strdel(&VALUE);
+	ft_strdel(&((t_env *)env->content)->field);
+	ft_strdel(&((t_env *)env->content)->value);
 	free(env->content);
 	free(env);
 }
 
-int		clean_exit(char **arg)
+int		clean_exit(char **arg, int ret)
 {
 	int tmp;
 
@@ -63,5 +63,5 @@ int		clean_exit(char **arg)
 			return (tmp);
 		}
 	}
-	return (0);
+	return (ret);
 }

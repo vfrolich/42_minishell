@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:39:08 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/02 14:29:15 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/03 18:00:43 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # include "libft/libft.h"
 # include <sys/wait.h>
 # include <signal.h>
-# define FIELD ((t_env *)env->content)->field
-# define VALUE ((t_env *)env->content)->value
 
 typedef struct	s_env{
 
@@ -51,15 +49,16 @@ char			**lst_to_tab(t_list *env);
 char			**get_path(t_list *env);
 char			*search_bin(char *path, char *bin);
 char			*search_in_paths(t_list *env, char *bin);
-void			read_entry(char *line, t_list *env);
+int				read_entry(char *line, t_list *env, int ret);
 int				process_manager(char *path, char **arg, char **envi);
 int				err_cd_handle(t_list *env, char **arg);
 int				go_home(t_list *env);
 int				change_dir(t_list *env, char *path);
 int				prev_dir(t_list *env);
-int				search_for_builtins(char **arg, t_list *env);
-int				clean_exit(char **arg);
+int				search_for_builtins(char **arg, t_list *env, int ret);
+int				clean_exit(char **arg, int ret);
 void			clean_cmd(char **arg, t_list *env);
 int				command_launch(char *path, char **arg, t_list *env);
+int				exec_check(char	*path);
 
 #endif

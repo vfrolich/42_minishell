@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arg_handle.c                                       :+:      :+:    :+:   */
+/*   path_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 12:11:11 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/02 19:34:27 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/03 18:01:48 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ char	**get_path(t_list *env)
 	tmp = env;
 	while (env)
 	{
-		if (!ft_strcmp(FIELD, "PATH"))
+		if (!ft_strcmp(((t_env *)env->content)->field, "PATH"))
 		{
-			dest = ft_strsplit(VALUE, ':');
+			dest = ft_strsplit(((t_env *)env->content)->value, ':');
 			env = tmp;
 			return (dest);
 		}
@@ -78,26 +78,21 @@ char	*search_in_paths(t_list *env, char *bin)
 	return (NULL);
 }
 
-void	read_entry(char *line, t_list *env)
+int		exec_check(char *path)
 {
-	char	**arg;
-	char	*path;
-	int		i;
+	struct stat stats;
 
-	if (!ft_strlen(line))
-		return ;
-	arg = ft_whitespace(line);
-	if (!arg)
-		return ;
-	i = search_for_builtins(arg, env);
-	if (i == -1)
-		exit(clean_exit(arg));
-	if (!i || i == 1)
+	if (stat(path, &stats) == -1)
 	{
-		free_tab(arg);
-		return ;
+		ft_putstr_fd("minishell: command not found :", 2);
+		ft_putendl_fd(path, 2);
+		return (2);
 	}
-	path = search_in_paths(env, arg[0]);
-	command_launch(path, arg, env);
-	return ;
+	else if (access(path, X_OK) == -1)
+	{
+		ft_putstr_fd("minishell: permission denied: ", 2);
+		ft_putendl_fd(path, 2);
+		return (2);
+	}
+	return (0);
 }
