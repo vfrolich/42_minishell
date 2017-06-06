@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/25 12:54:46 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/02 19:10:29 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/06 21:01:18 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		go_home(t_list *env)
 	{
 		ft_putstr_fd("cd: permission denied: ", 2);
 		ft_putendl_fd(home, 2);
+		ft_strdel(&home);
 		return (1);
 	}
 	old = get_cdir();

@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 14:41:46 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/03 18:03:02 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/06 16:17:18 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		check_entry(char *line)
 	char	**arg;
 
 	arg = ft_whitespace(line);
-	if (!*arg)
+	if (!(ft_strlen(*arg)))
 	{
 		free_tab(arg);
 		return (1);

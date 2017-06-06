@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 12:11:11 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/03 18:01:48 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/06 11:49:25 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,9 @@ int		exec_check(char *path)
 
 	if (stat(path, &stats) == -1)
 	{
-		ft_putstr_fd("minishell: command not found :", 2);
-		ft_putendl_fd(path, 2);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(path, 2);
+		ft_putendl_fd(": no such file or directory", 2);
 		return (2);
 	}
 	else if (access(path, X_OK) == -1)

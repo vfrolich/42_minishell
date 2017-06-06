@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 19:58:10 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/03 17:55:12 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/06 17:12:59 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		add_env(char *name, char *value, t_list *lst)
 	}
 	((t_env *)new->content)->field = ft_strdup(name);
 	((t_env *)new->content)->value = ft_strdup(value);
-	lst->next = new;
+	lst_add(new, &lst);
 	free(new_env);
 	return (0);
 }

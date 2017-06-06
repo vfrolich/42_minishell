@@ -69,7 +69,10 @@ SRCS =	ft_memccpy.c \
 		lst_add.c\
 		ft_count_lst.c\
 		ft_strcut.c\
-		ft_isnumber.c
+		ft_isnumber.c\
+		ft_wordtab_to_str.c\
+		ft_lstdup.c
+
 OBJ =   ft_memccpy.o \
         ft_memcpy.o  \
         ft_strchr.o  \
@@ -139,7 +142,9 @@ OBJ =   ft_memccpy.o \
 		lst_add.o\
 		ft_count_lst.o\
 		ft_strcut.o\
-		ft_isnumber.o
+		ft_isnumber.o\
+		ft_wordtab_to_str.o\
+		ft_lstdup.o
 
 all: $(NAME)
 

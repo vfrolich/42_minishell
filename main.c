@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:36:36 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/03 18:01:17 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/06 16:17:35 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	minishell(char **environ, int ret, char *line)
 			ret = read_entry(args[i], lst, ret);
 			i++;
 		}
-		*args ? free_tab(args) : NULL;
+		free_tab(args);
 		ft_strdel(&line);
 	}
 }

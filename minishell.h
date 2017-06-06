@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:39:08 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/03 18:00:43 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/06 18:38:24 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void			print_env(t_list *env);
 t_env			*get_fields(char *env);
 t_list			*get_env(char **env);
 int				add_env(char *name, char *value, t_list *lst);
+t_list			*add_to_env(char ***arg, t_list *env);
+int				ft_env(char **arg, t_list *env);
 int				ft_echo(char **str);
 int				set_env(char *name, char *value, t_list *env);
 int				unset_env(char	*name, t_list *env);

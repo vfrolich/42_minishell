@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process.c                                          :+:      :+:    :+:   */
+/*   ft_lstdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/23 12:28:26 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/06 11:35:21 by vfrolich         ###   ########.fr       */
+/*   Created: 2017/06/06 22:45:14 by vfrolich          #+#    #+#             */
+/*   Updated: 2017/06/06 22:47:21 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		process_manager(char *path, char **arg, char **env)
+t_list	*ft_lstdup(t_list *lst)
 {
-	pid_t	father;
-	int		status;
+	t_list	*tmp;
+	t_list	*start;
 
-	status = 0;
-	father = fork();
-	if (father == 0)
+	tmp = ft_lstnew(lst->content, ft_strlen(lst->content));
+	start = tmp;
+	lst = lst->next;
+	while (lst)
 	{
-		signal(SIGINT, SIG_DFL);
-		execve(path, arg, env);
+		tmp->next = ft_lstnew(lst->content, ft_strlen(lst->content));
+		tmp = tmp->next;
+		lst = lst->next;
 	}
-	if (father > 0)
-		wait(&status);
-	free_tab(arg);
-	free_tab(env);
-	ft_strdel(&path);
-	return (status);
+	return (start);
 }

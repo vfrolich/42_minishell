@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 14:38:49 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/03 17:59:27 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/06 12:05:15 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	free_tab(char **tab)
 	int		i;
 
 	i = 0;
-	if (!*tab)
-		return ;
 	while (tab[i])
 	{
 		ft_strdel(&tab[i]);

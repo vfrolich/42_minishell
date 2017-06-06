@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 22:50:59 by valentinfrolich   #+#    #+#             */
-/*   Updated: 2017/06/03 18:03:14 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/06 11:47:28 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int		command_launch(char *path, char **arg, t_list *env)
 	{
 		free_tab(arg);
 		ft_strdel(&path);
-		return (-1);
+		return (127);
 	}
 	if (!path)
 	{
