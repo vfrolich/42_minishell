@@ -6,11 +6,33 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:36:36 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/06 16:17:35 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/07 17:59:58 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_list	*ft_lstdup(t_list *lst)
+{
+	t_list	*tmp;
+	t_list	*start;
+	t_env	*envtmp;
+
+	envtmp = envvar_init(((t_env *)lst->content)->field,
+		((t_env *)lst->content)->value);
+	tmp = ft_lstnew(envtmp, sizeof(t_env));
+	lst = lst->next;
+	start = tmp;
+	while (lst)
+	{
+		envtmp = envvar_init(((t_env *)lst->content)->field,
+		((t_env *)lst->content)->value);
+		tmp->next = ft_lstnew(envtmp, sizeof(t_env));
+		tmp = tmp->next;
+		lst = lst->next;
+	}
+	return (start);
+}
 
 void	minishell(char **environ, int ret, char *line)
 {

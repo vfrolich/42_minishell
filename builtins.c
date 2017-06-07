@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 15:42:14 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/06 18:42:08 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/07 17:59:05 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ int		search_for_builtins(char **arg, t_list *env, int ret)
 	if (!ft_strcmp(arg[0], "unsetenv"))
 		return (unset_env(arg[1], env));
 	if (!ft_strcmp(arg[0], "setenv"))
-		return (set_env(arg[1], arg[2], env));
+	{
+		env = set_env(arg[1], arg[2], env);
+		return (0);
+	}
 	return (2);
 }
 
@@ -36,13 +39,20 @@ t_list	*add_to_env(char ***arg, t_list *env)
 	char	*tmp;
 	size_t	size;
 
+	if (!ft_strcmp(*arg[0], "-i"))
+	{
+		env = NULL;
+		(*arg)++;
+	}
+	else
+		env = ft_lstdup(env);
 	while (**arg && ft_strchr(**arg, '='))
 	{
 		if (ft_strchr(**arg, '='))
 		{
 			size = (ft_strchr(**arg, '=') - **arg);
 			tmp = ft_strsub(**arg, 0, size);
-			set_env(tmp, ft_strchr(**arg, '=') + 1, env);
+			env = set_env(tmp, ft_strchr(**arg, '=') + 1, env);
 			ft_strdel(&tmp);
 		}
 		(*arg)++;
@@ -53,27 +63,27 @@ t_list	*add_to_env(char ***arg, t_list *env)
 int		ft_env(char **arg, t_list *env)
 {
 	t_list	*tmp_env;
+	int		ret;
+	char	*tmp;
 
 	if (!(*arg))
 	{
 		print_env(env);
 		return (0);
 	}
-	if (!ft_strcmp(arg[0], "-i"))
-	{
-		tmp_env = env_ex_nihilo();
-		free_env(env);
-	}
-	else
-		tmp_env = env;
+	tmp_env = NULL;
 	tmp_env = add_to_env(&arg, tmp_env);
 	if (!(*arg))
 	{
 		print_env(tmp_env);
+		free_env(tmp_env);
 		return (0);
 	}
-	ft_putendl(*arg);
-	return (0);
+	tmp = ft_wordtab_to_str(arg);
+	ret = read_entry(tmp, tmp_env, 0);
+	ft_strdel(&tmp);
+	free_env(tmp_env);
+	return (ret);
 }
 
 int		ft_echo(char **str)

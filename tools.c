@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 22:50:59 by valentinfrolich   #+#    #+#             */
-/*   Updated: 2017/06/06 11:47:28 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/07 17:51:49 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,20 @@ int		command_launch(char *path, char **arg, t_list *env)
 {
 	char	**envi;
 
-	if (exec_check(path) == 2)
-	{
-		free_tab(arg);
-		ft_strdel(&path);
-		return (127);
-	}
 	if (!path)
 	{
+		if (ft_strchr(arg[0], '/'))
+		{
+			path = ft_strdup(arg[0]);
+			if (exec_check(path) == 2)
+			{
+				free_tab(arg);
+				ft_strdel(&path);
+				return (127);
+			}
+			envi = lst_to_tab(env);
+			return (process_manager(path, arg, envi));
+		}
 		ft_putstr_fd("minishell: command not found: ", 2);
 		ft_putendl_fd(arg[0], 2);
 		free_tab(arg);

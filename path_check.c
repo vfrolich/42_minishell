@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 12:11:11 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/06 11:49:25 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/07 17:50:35 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ char	*search_in_paths(t_list *env, char *bin)
 
 	dest = NULL;
 	i = 0;
+	if (!ft_strcmp(bin, ".") || !ft_strcmp(bin, ".."))
+		return (NULL);
 	if (!(paths = get_path(env)))
 		return (NULL);
 	while (paths[i])
@@ -81,7 +83,9 @@ char	*search_in_paths(t_list *env, char *bin)
 int		exec_check(char *path)
 {
 	struct stat stats;
+	size_t		len;
 
+	len = ft_strlen(path);
 	if (stat(path, &stats) == -1)
 	{
 		ft_putstr_fd("minishell: ", 2);
@@ -92,6 +96,12 @@ int		exec_check(char *path)
 	else if (access(path, X_OK) == -1)
 	{
 		ft_putstr_fd("minishell: permission denied: ", 2);
+		ft_putendl_fd(path, 2);
+		return (2);
+	}
+	else if (path[len - 1] == '.' || path[len - 1] == '/')
+	{
+		ft_putstr_fd("minishell: invalid command path: ", 2);
 		ft_putendl_fd(path, 2);
 		return (2);
 	}

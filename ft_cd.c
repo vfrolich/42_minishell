@@ -6,12 +6,11 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/25 12:54:46 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/06 21:01:18 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/07 17:56:58 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
 
 int		go_home(t_list *env)
 {

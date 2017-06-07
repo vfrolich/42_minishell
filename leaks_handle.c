@@ -6,11 +6,12 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 14:38:49 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/06 12:05:15 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/07 14:15:44 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
 void	free_tab(char **tab)
 {
@@ -19,7 +20,8 @@ void	free_tab(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		ft_strdel(&tab[i]);
+		if (ft_strlen(tab[i]))
+			ft_strdel(&tab[i]);
 		tab[i] = NULL;
 		i++;
 	}

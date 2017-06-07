@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 14:41:46 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/06 16:17:18 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/07 17:52:08 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,6 @@ int		read_entry(char *line, t_list *env, int ret)
 	if (ret == 2)
 	{
 		path = search_in_paths(env, arg[0]);
-		if (!path)
-		{
-			path = ft_strdup(arg[0]);
-			return (command_launch(path, arg, env));
-		}
 		return (command_launch(path, arg, env));
 	}
 	free_tab(arg);

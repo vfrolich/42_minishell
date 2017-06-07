@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 19:58:10 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/06 17:12:59 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/07 17:59:28 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_env	*get_fields(char *env)
 	return (new);
 }
 
-int		add_env(char *name, char *value, t_list *lst)
+t_list	*add_env(char *name, char *value, t_list *lst)
 {
 	t_list	*new;
 	t_env	*new_env;
@@ -58,7 +58,7 @@ int		add_env(char *name, char *value, t_list *lst)
 	((t_env *)new->content)->value = ft_strdup(value);
 	lst_add(new, &lst);
 	free(new_env);
-	return (0);
+	return (lst);
 }
 
 t_list	*get_env(char **env)
@@ -82,27 +82,30 @@ t_list	*get_env(char **env)
 	return (start);
 }
 
-int		set_env(char *name, char *value, t_list *env)
+t_list	*set_env(char *name, char *value, t_list *env)
 {
 	t_list	*start;
 
 	start = env;
 	if (!value)
-		return (1);
+		return (env);
+	if (!env)
+	{
+		env = add_env(name, value, env);
+		return (env);
+	}
 	while (env->next)
 	{
 		if ((!ft_strcmp(((t_env *)env->content)->field, name)))
 		{
 			ft_strdel(&((t_env *)env->content)->value);
 			((t_env *)env->content)->value = ft_strdup(value);
-			env = start;
-			return (0);
+			return (start);
 		}
 		env = env->next;
 	}
-	add_env(name, value, env);
-	env = start;
-	return (0);
+	env = add_env(name, value, env);
+	return (start);
 }
 
 int		unset_env(char *name, t_list *env)

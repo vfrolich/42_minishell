@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:39:08 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/06 18:38:24 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/07 15:11:38 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ void			free_tab(char **tab);
 void			print_env(t_list *env);
 t_env			*get_fields(char *env);
 t_list			*get_env(char **env);
-int				add_env(char *name, char *value, t_list *lst);
+t_list			*add_env(char *name, char *value, t_list *lst);
 t_list			*add_to_env(char ***arg, t_list *env);
 int				ft_env(char **arg, t_list *env);
 int				ft_echo(char **str);
-int				set_env(char *name, char *value, t_list *env);
+t_list			*set_env(char *name, char *value, t_list *env);
 int				unset_env(char	*name, t_list *env);
 int				ft_cd(t_list *env, char	**arg);
 char			*get_env_value(t_list *env, char *field);
@@ -62,5 +62,7 @@ int				clean_exit(char **arg, int ret);
 void			clean_cmd(char **arg, t_list *env);
 int				command_launch(char *path, char **arg, t_list *env);
 int				exec_check(char	*path);
+t_env			*envvar_init(char *field, char *value);
+t_list			*ft_lstdup(t_list *lst);
 
 #endif
