@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:39:08 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/07 15:11:38 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/08 17:14:33 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ int				command_launch(char *path, char **arg, t_list *env);
 int				exec_check(char	*path);
 t_env			*envvar_init(char *field, char *value);
 t_list			*ft_lstdup(t_list *lst);
+void			put_usage_setenv();
 
 #endif

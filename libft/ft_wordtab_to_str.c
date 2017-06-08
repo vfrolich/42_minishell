@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 12:32:10 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/06 14:17:48 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/08 14:40:04 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,25 @@ char	*ft_wordtab_to_str(char **wordtab)
 {
 	char	*dest;
 	int		i;
+	int		j;
+	int		k;
 
 	i = 0;
+	j = 0;
+	k = 0;
 	dest = ft_strnew(count_chars(wordtab) + count_words(wordtab));
-	while (*wordtab)
+	while (wordtab[k])
 	{
-		while (**wordtab)
+		j = 0;
+		while (wordtab[k][j])
 		{
-			dest[i] = **wordtab;
-			(*wordtab)++;
+			dest[i] = wordtab[k][j];
+			j++;
 			i++;
 		}
 		dest[i] = 32;
 		i++;
-		wordtab++;
+		k++;
 	}
 	dest[i] = '\0';
 	return (dest);

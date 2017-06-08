@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 19:58:10 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/07 17:59:28 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/08 18:31:56 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,11 @@ t_list	*set_env(char *name, char *value, t_list *env)
 	t_list	*start;
 
 	start = env;
-	if (!value)
+	if (!value || !name)
+	{
+		put_usage_setenv();
 		return (env);
+	}
 	if (!env)
 	{
 		env = add_env(name, value, env);
@@ -114,7 +117,7 @@ int		unset_env(char *name, t_list *env)
 	t_list	*start;
 
 	start = env;
-	if (!name)
+	if (!name || !env)
 		return (1);
 	while (env->next)
 	{

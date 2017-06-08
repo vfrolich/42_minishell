@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 15:42:14 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/07 17:59:05 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/08 18:57:24 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,20 @@ int		search_for_builtins(char **arg, t_list *env, int ret)
 	if (!ft_strlen(arg[0]))
 		return (2);
 	if (!ft_strcmp(arg[0], "exit"))
-		exit(clean_exit(arg, ret));
+	{
+		if (clean_exit(arg, ret) != -1)
+			exit(clean_exit(arg, ret));
+		return (-1);
+	}
 	if (!ft_strcmp(arg[0], "echo"))
 		return (ft_echo(&arg[1]));
 	if (!ft_strcmp(arg[0], "cd"))
 		return (ft_cd(env, &arg[1]));
 	if (!ft_strcmp(arg[0], "env"))
-		return (ft_env(&arg[1], env));
+		return (ft_env(arg, env));
 	if (!ft_strcmp(arg[0], "unsetenv"))
 		return (unset_env(arg[1], env));
-	if (!ft_strcmp(arg[0], "setenv"))
+	if (!ft_strcmp(arg[0], "setenv") || !ft_strcmp(arg[0], "export"))
 	{
 		env = set_env(arg[1], arg[2], env);
 		return (0);
@@ -41,11 +45,10 @@ t_list	*add_to_env(char ***arg, t_list *env)
 
 	if (!ft_strcmp(*arg[0], "-i"))
 	{
+		free_env(env);
 		env = NULL;
 		(*arg)++;
 	}
-	else
-		env = ft_lstdup(env);
 	while (**arg && ft_strchr(**arg, '='))
 	{
 		if (ft_strchr(**arg, '='))
@@ -65,13 +68,16 @@ int		ft_env(char **arg, t_list *env)
 	t_list	*tmp_env;
 	int		ret;
 	char	*tmp;
+	char	**tmp2;
 
+	tmp2 = arg;
+	arg++;
 	if (!(*arg))
 	{
 		print_env(env);
 		return (0);
 	}
-	tmp_env = NULL;
+	tmp_env = ft_lstdup(env);
 	tmp_env = add_to_env(&arg, tmp_env);
 	if (!(*arg))
 	{
@@ -80,6 +86,7 @@ int		ft_env(char **arg, t_list *env)
 		return (0);
 	}
 	tmp = ft_wordtab_to_str(arg);
+	arg = tmp2;
 	ret = read_entry(tmp, tmp_env, 0);
 	ft_strdel(&tmp);
 	free_env(tmp_env);
@@ -88,7 +95,7 @@ int		ft_env(char **arg, t_list *env)
 
 int		ft_echo(char **str)
 {
-	if (!ft_strcmp(*str, "-n"))
+	if (*str && !ft_strcmp(*str, "-n"))
 	{
 		str++;
 		while (*str)
@@ -98,7 +105,7 @@ int		ft_echo(char **str)
 		}
 		return (0);
 	}
-	if (!ft_strncmp(*str, "-n", 2) && ft_strlen(*str) > 2)
+	if (*str && !ft_strncmp(*str, "-n", 2) && ft_strlen(*str) > 2)
 	{
 		ft_putendl_fd("usage: echo -n [string]", 2);
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:36:36 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/07 17:59:58 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/08 15:27:55 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_list	*ft_lstdup(t_list *lst)
 	envtmp = envvar_init(((t_env *)lst->content)->field,
 		((t_env *)lst->content)->value);
 	tmp = ft_lstnew(envtmp, sizeof(t_env));
+	free(envtmp);
 	lst = lst->next;
 	start = tmp;
 	while (lst)
@@ -28,6 +29,7 @@ t_list	*ft_lstdup(t_list *lst)
 		envtmp = envvar_init(((t_env *)lst->content)->field,
 		((t_env *)lst->content)->value);
 		tmp->next = ft_lstnew(envtmp, sizeof(t_env));
+		free(envtmp);
 		tmp = tmp->next;
 		lst = lst->next;
 	}
