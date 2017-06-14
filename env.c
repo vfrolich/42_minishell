@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 19:58:10 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/08 18:31:56 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/14 21:32:30 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_env	*get_fields(char *env)
 	return (new);
 }
 
-t_list	*add_env(char *name, char *value, t_list *lst)
+void	add_env(char *name, char *value, t_list **lst)
 {
 	t_list	*new;
 	t_env	*new_env;
@@ -56,9 +56,8 @@ t_list	*add_env(char *name, char *value, t_list *lst)
 	}
 	((t_env *)new->content)->field = ft_strdup(name);
 	((t_env *)new->content)->value = ft_strdup(value);
-	lst_add(new, &lst);
+	lst_add(new, lst);
 	free(new_env);
-	return (lst);
 }
 
 t_list	*get_env(char **env)
@@ -82,33 +81,33 @@ t_list	*get_env(char **env)
 	return (start);
 }
 
-t_list	*set_env(char *name, char *value, t_list *env)
+t_list	*set_env(char *name, char *value, t_list **env)
 {
 	t_list	*start;
 
-	start = env;
+	start = *env;
 	if (!value || !name)
 	{
 		put_usage_setenv();
-		return (env);
+		return (*env);
 	}
-	if (!env)
+	if (!(*env))
 	{
-		env = add_env(name, value, env);
-		return (env);
+		add_env(name, value, env);
+		return (*env);
 	}
-	while (env->next)
+	while (start->next)
 	{
-		if ((!ft_strcmp(((t_env *)env->content)->field, name)))
+		if ((!ft_strcmp(((t_env *)start->content)->field, name)))
 		{
-			ft_strdel(&((t_env *)env->content)->value);
-			((t_env *)env->content)->value = ft_strdup(value);
-			return (start);
+			ft_strdel(&((t_env *)start->content)->value);
+			((t_env *)start->content)->value = ft_strdup(value);
+			return (*env);
 		}
-		env = env->next;
+		start = start->next;
 	}
-	env = add_env(name, value, env);
-	return (start);
+	add_env(name, value, env);
+	return (*env);
 }
 
 int		unset_env(char *name, t_list *env)

@@ -6,13 +6,13 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 15:42:14 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/08 18:57:24 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/14 21:34:08 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		search_for_builtins(char **arg, t_list *env, int ret)
+int		search_for_builtins(char **arg, t_list **env, int ret)
 {
 	if (!ft_strlen(arg[0]))
 		return (2);
@@ -25,14 +25,14 @@ int		search_for_builtins(char **arg, t_list *env, int ret)
 	if (!ft_strcmp(arg[0], "echo"))
 		return (ft_echo(&arg[1]));
 	if (!ft_strcmp(arg[0], "cd"))
-		return (ft_cd(env, &arg[1]));
+		return (ft_cd(*env, &arg[1]));
 	if (!ft_strcmp(arg[0], "env"))
-		return (ft_env(arg, env));
+		return (ft_env(arg, *env));
 	if (!ft_strcmp(arg[0], "unsetenv"))
-		return (unset_env(arg[1], env));
+		return (unset_env(arg[1], *env));
 	if (!ft_strcmp(arg[0], "setenv") || !ft_strcmp(arg[0], "export"))
 	{
-		env = set_env(arg[1], arg[2], env);
+		*env = set_env(arg[1], arg[2], env);
 		return (0);
 	}
 	return (2);
@@ -55,7 +55,7 @@ t_list	*add_to_env(char ***arg, t_list *env)
 		{
 			size = (ft_strchr(**arg, '=') - **arg);
 			tmp = ft_strsub(**arg, 0, size);
-			env = set_env(tmp, ft_strchr(**arg, '=') + 1, env);
+			env = set_env(tmp, ft_strchr(**arg, '=') + 1, &env);
 			ft_strdel(&tmp);
 		}
 		(*arg)++;
@@ -87,7 +87,7 @@ int		ft_env(char **arg, t_list *env)
 	}
 	tmp = ft_wordtab_to_str(arg);
 	arg = tmp2;
-	ret = read_entry(tmp, tmp_env, 0);
+	ret = read_entry(tmp, &tmp_env, 0);
 	ft_strdel(&tmp);
 	free_env(tmp_env);
 	return (ret);

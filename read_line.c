@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 14:41:46 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/08 14:24:10 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/14 20:36:43 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		check_entry(char *line)
 	return (0);
 }
 
-int		read_entry(char *line, t_list *env, int ret)
+int		read_entry(char *line, t_list **env, int ret)
 {
 	char	**arg;
 	char	*path;
@@ -37,8 +37,8 @@ int		read_entry(char *line, t_list *env, int ret)
 	ret = search_for_builtins(arg, env, ret);
 	if (ret == 2)
 	{
-		path = search_in_paths(env, arg[0]);
-		return (command_launch(path, arg, env));
+		path = search_in_paths(*env, arg[0]);
+		return (command_launch(path, arg, *env));
 	}
 	free_tab(arg);
 	return (ret);

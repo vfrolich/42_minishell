@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:36:36 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/08 15:27:55 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/14 20:37:15 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	minishell(char **environ, int ret, char *line)
 		i = 0;
 		while (args[i])
 		{
-			ret = read_entry(args[i], lst, ret);
+			ret = read_entry(args[i], &lst, ret);
 			i++;
 		}
 		free_tab(args);

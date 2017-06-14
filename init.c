@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/30 13:59:08 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/02 19:32:18 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/14 21:16:12 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_list	*env_init(char **env)
 	ft_strdel(&tmp2);
 	tmp++;
 	tmp2 = ft_itoa(tmp);
-	set_env("SHLVL", tmp2, envi);
+	set_env("SHLVL", tmp2, &envi);
 	ft_strdel(&tmp2);
 	return (envi);
 }
