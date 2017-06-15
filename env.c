@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 19:58:10 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/14 21:32:30 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/15 14:10:35 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,27 +39,6 @@ t_env	*get_fields(char *env)
 	return (new);
 }
 
-void	add_env(char *name, char *value, t_list **lst)
-{
-	t_list	*new;
-	t_env	*new_env;
-
-	if (!(new_env = (t_env *)malloc(sizeof(t_env))))
-	{
-		ft_putendl_fd("minishell: malloc of t_env * has failed", 2);
-		exit(1);
-	}
-	if (!(new = ft_lstnew(new_env, sizeof(t_env *))))
-	{
-		ft_putendl_fd("minishell: malloc of t_list * has failed", 2);
-		exit(1);
-	}
-	((t_env *)new->content)->field = ft_strdup(name);
-	((t_env *)new->content)->value = ft_strdup(value);
-	lst_add(new, lst);
-	free(new_env);
-}
-
 t_list	*get_env(char **env)
 {
 	t_list	*start;
@@ -79,35 +58,6 @@ t_list	*get_env(char **env)
 		env++;
 	}
 	return (start);
-}
-
-t_list	*set_env(char *name, char *value, t_list **env)
-{
-	t_list	*start;
-
-	start = *env;
-	if (!value || !name)
-	{
-		put_usage_setenv();
-		return (*env);
-	}
-	if (!(*env))
-	{
-		add_env(name, value, env);
-		return (*env);
-	}
-	while (start->next)
-	{
-		if ((!ft_strcmp(((t_env *)start->content)->field, name)))
-		{
-			ft_strdel(&((t_env *)start->content)->value);
-			((t_env *)start->content)->value = ft_strdup(value);
-			return (*env);
-		}
-		start = start->next;
-	}
-	add_env(name, value, env);
-	return (*env);
 }
 
 int		unset_env(char *name, t_list *env)

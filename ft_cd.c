@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/25 12:54:46 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/14 21:19:08 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/15 13:40:21 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,19 @@ int		change_dir(t_list *env, char *path)
 	char	*tmp;
 
 	old = get_cdir();
-	unset_env("OLDPWD", env);
-	set_env("OLDPWD", old, &env);
+	if (env)
+	{
+		unset_env("OLDPWD", env);
+		set_env("OLDPWD", old, &env);
+	}
 	old ? ft_strdel(&old) : NULL;
 	chdir(path);
 	tmp = get_cdir();
-	unset_env("PWD", env);
-	set_env("PWD", tmp, &env);
+	if (env)
+	{
+		unset_env("PWD", env);
+		set_env("PWD", tmp, &env);
+	}
 	ft_strdel(&tmp);
 	return (0);
 }
@@ -95,12 +101,18 @@ int		prev_dir(t_list *env)
 		return (1);
 	}
 	ft_putendl(old);
-	unset_env("OLDPWD", env);
-	set_env("OLDPWD", tmp, &env);
+	if (env)
+	{
+		unset_env("OLDPWD", env);
+		set_env("OLDPWD", tmp, &env);
+	}
 	ft_strdel(&tmp);
 	chdir(old);
-	unset_env("PWD", env);
-	set_env("PWD", old, &env);
+	if (env)
+	{
+		unset_env("PWD", env);
+		set_env("PWD", old, &env);
+	}
 	ft_strdel(&old);
 	return (0);
 }

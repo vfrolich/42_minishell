@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 11:25:12 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/02 19:25:33 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/15 12:49:43 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ void	put_prompt(t_list *env)
 {
 	char	*pwd;
 
+	if ((pwd = get_env_value(env, "PWD")))
+	{
+		err_cd_handle(env, &pwd);
+		ft_strdel(&pwd);
+	}
 	ft_putchar('\033');
 	ft_putstr("[36m");
 	pwd = home_handle(env);

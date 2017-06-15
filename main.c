@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:36:36 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/14 20:37:15 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/15 12:36:04 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_list	*ft_lstdup(t_list *lst)
 	t_list	*start;
 	t_env	*envtmp;
 
+	if (!lst)
+		return (NULL);
 	envtmp = envvar_init(((t_env *)lst->content)->field,
 		((t_env *)lst->content)->value);
 	tmp = ft_lstnew(envtmp, sizeof(t_env));
