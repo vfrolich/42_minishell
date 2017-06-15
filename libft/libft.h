@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 17:19:57 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/07 13:30:50 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/15 15:29:47 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,6 @@ void					lst_add(t_list *lst, t_list **start);
 size_t					ft_count_lst(t_list	*lst);
 int						ft_isnumber(char *str);
 char					*ft_wordtab_to_str(char **wordtab);
+size_t					ft_tab_size(char **tab);
 
 #endif

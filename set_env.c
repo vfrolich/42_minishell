@@ -6,31 +6,11 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/15 14:09:48 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/15 14:29:37 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/15 15:51:01 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int		set_env_err_handle(char *name, char *value, t_list **env)
-{
-	if (!name && !value)
-	{
-		print_env(*env);
-		return (1);
-	}
-	if (!value || !name)
-	{
-		put_usage_setenv();
-		return (1);
-	}
-	if (!(*env))
-	{
-		add_env(name, value, env);
-		return (1);
-	}
-	return (0);
-}
 
 void	add_env(char *name, char *value, t_list **lst)
 {
@@ -58,8 +38,11 @@ t_list	*set_env(char *name, char *value, t_list **env)
 	t_list	*start;
 
 	start = *env;
-	if (set_env_err_handle(name, value, env))
+	if (!(*env))
+	{
+		add_env(name, value, env);
 		return (*env);
+	}
 	while (start->next)
 	{
 		if ((!ft_strcmp(((t_env *)start->content)->field, name)))
@@ -72,4 +55,30 @@ t_list	*set_env(char *name, char *value, t_list **env)
 	}
 	add_env(name, value, env);
 	return (*env);
+}
+
+int		ft_set_env(char **arg, t_list **env)
+{
+	size_t	size;
+	char	**tmp;
+	char	*tmp2;
+
+	tmp = arg;
+	if (ft_tab_size(arg) < 2)
+	{
+		print_env(*env);
+		return (0);
+	}
+	while (*tmp)
+	{
+		if (ft_strchr(*tmp, '='))
+		{
+			size = (ft_strchr(*tmp, '=') - *tmp);
+			tmp2 = ft_strsub(*tmp, 0, size);
+			*env = set_env(tmp2, ft_strchr(*tmp, '=') + 1, env);
+			ft_strdel(&tmp2);
+		}
+		tmp++;
+	}
+	return (0);
 }
