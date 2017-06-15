@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 11:25:12 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/15 15:21:16 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/15 17:12:51 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 void	put_prompt(t_list *env)
 {
-	char	*pwd;
+	char		*pwd;
+	struct stat	stats;
 
 	if ((pwd = get_env_value(env, "PWD")))
 	{
-		err_cd_handle(env, &pwd);
+		if (stat(pwd, &stats) != -1 && S_ISDIR(stats.st_mode) &&
+			access(pwd, X_OK) != -1)
+			chdir(pwd);
 		ft_strdel(&pwd);
 	}
 	ft_putchar('\033');

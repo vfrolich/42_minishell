@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_errors.c                                       :+:      :+:    :+:   */
+/*   ft_isalnumword.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/08 17:06:13 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/15 19:27:07 by vfrolich         ###   ########.fr       */
+/*   Created: 2017/06/15 17:26:24 by vfrolich          #+#    #+#             */
+/*   Updated: 2017/06/15 18:44:37 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	put_usage_setenv(char *str)
+int		ft_isalnumword(char *str)
 {
-	ft_putstr_fd("minishell: setenv: \"", 2);
-	ft_putstr_fd(str, 2);
-	ft_putendl_fd("\": not a valid identifier", 2);
+	while (*str)
+	{
+		if (!ft_isalpha(*str) && !ft_isdigit(*str))
+			return (0);
+		str++;
+	}
+	return (1);
 }
