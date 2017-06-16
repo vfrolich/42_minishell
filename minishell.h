@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:39:08 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/15 17:34:33 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/16 21:15:30 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ char			*search_bin(char *path, char *bin);
 char			*search_in_paths(t_list *env, char *bin);
 int				read_entry(char *line, t_list **env, int ret);
 int				process_manager(char *path, char **arg, char **envi);
+void			pwd_checker(t_list *env);
+void			pwd_checker_env(char *pwd, t_list *env);
 int				err_cd_handle(t_list *env, char **arg);
 int				go_home(t_list *env);
 int				change_dir(t_list *env, char *path);

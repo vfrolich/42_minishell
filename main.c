@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:36:36 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/15 15:21:23 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/16 21:15:12 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	minishell(char **environ, int ret, char *line)
 	lst = env_init(environ);
 	while (42)
 	{
+		pwd_checker(lst);
 		put_prompt(lst);
 		get_next_line(0, &line);
 		args = ft_strsplit(line, ';');

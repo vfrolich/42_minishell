@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 14:41:46 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/15 15:44:16 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/16 21:44:15 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int		search_for_builtins2(char **arg, t_list **env)
 {
+	char	*pwd_tmp;
+	int		ret;
+
 	if (!ft_strcmp(arg[0], "env"))
 	{
 		if (!arg[1])
@@ -21,7 +24,11 @@ int		search_for_builtins2(char **arg, t_list **env)
 			print_env(*env);
 			return (0);
 		}
-		return (ft_env(arg, *env));
+		pwd_tmp = get_cdir(*env);
+		ret = ft_env(arg, *env);
+		pwd_checker_env(pwd_tmp, *env);
+		ft_strdel(&pwd_tmp);
+		return (ret);
 	}
 	if (!ft_strcmp(arg[0], "unsetenv"))
 		return (unset_env(arg[1], *env));
