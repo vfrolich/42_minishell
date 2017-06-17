@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentinfrolich <valentinfrolich@student.42.fr>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 15:42:14 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/16 18:46:30 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/16 23:48:03 by valentinfrolich  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
 
 t_list	*add_to_env(char ***arg, t_list *env)
@@ -76,7 +75,7 @@ int		ft_echo(char **str)
 	}
 	if (*str && !ft_strncmp(*str, "-n", 2) && ft_strlen(*str) > 2)
 	{
-		ft_putendl_fd("usage: echo -n [string]", 2);
+		ft_putendl_fd("usage: echo [-n] [string]", 2);
 		return (1);
 	}
 	while (*str)
@@ -88,4 +87,26 @@ int		ft_echo(char **str)
 	}
 	ft_putchar('\n');
 	return (0);
+}
+
+int		clean_exit(char **arg, int ret)
+{
+	int tmp;
+
+	if (arg[1] && arg[2])
+	{
+		ft_putendl_fd("exit: too many arguments", 2);
+		return (-1);
+	}
+	if (arg[1])
+	{
+		if (ft_strlen(arg[1]) && ft_isnumber(arg[1]))
+		{
+			tmp = ft_atoi(arg[1]);
+			return (tmp);
+		}
+		ft_putendl_fd("exit: numeric argument required", 2);
+		exit(0);
+	}
+	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/15 14:09:48 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/15 18:45:24 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/17 01:15:32 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_list	*set_env(char *name, char *value, t_list **env)
 		add_env(name, value, env);
 		return (*env);
 	}
-	while (start->next)
+	while (start)
 	{
 		if ((!ft_strcmp(((t_env *)start->content)->field, name)))
 		{

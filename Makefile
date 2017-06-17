@@ -18,7 +18,7 @@ LIB				=   $(LIB_PATH)/libft.a
 LIB_LINK		=	-Llibft -lft
 SRC				=	main.c env.c tools.c path_check.c prompt.c process.c\
 					leaks_handle.c builtins.c ft_cd.c init.c read_line.c\
-					put_errors.c set_env.c
+					put_errors.c set_env.c safety_tools.c
 
 HEADER			=	minishell.h
 OBJS			=	$(SRC:.c=.o)

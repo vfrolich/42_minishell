@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/30 13:59:08 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/14 21:16:12 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/17 02:05:22 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,26 +53,31 @@ t_env	*envvar_init(char *field, char *value)
 	return (new);
 }
 
+t_list	*set_envvar(char *field, char *value)
+{
+	t_list	*new;
+	t_env	*envvar;
+
+	envvar = envvar_init(field, value);
+	new = ft_lstnew(envvar, sizeof(t_env));
+	free(envvar);
+	return (new);
+}
 t_list	*env_ex_nihilo(void)
 {
 	t_list	*lst;
 	t_list	*new;
-	t_env	*envvar;
 	char	*tmp;
+	char	*tmp2;
 
 	tmp = get_cdir(NULL);
-	envvar = envvar_init("PWD", tmp);
-	lst = ft_lstnew(envvar, sizeof(t_env));
-	free(envvar);
-	envvar = envvar_init("SHLVL", "1");
-	new = ft_lstnew(envvar, sizeof(t_env));
-	free(envvar);
+	lst = set_envvar("PWD", tmp);
+	new = set_envvar("SHLVL", "1");
 	lst_add(new, &lst);
-	tmp = ft_strjoin_free_one(&tmp, "./minishell");
-	envvar = envvar_init("_", tmp);
+	tmp2 = ft_strsub(tmp, 0, ft_strlen(tmp));
 	ft_strdel(&tmp);
-	new = ft_lstnew(envvar, sizeof(t_env));
-	free(envvar);
+	tmp = ft_strjoin_free_one(&tmp2, "/minishell");
+	new = set_envvar("_", tmp);
 	lst_add(new, &lst);
 	return (lst);
 }
@@ -80,22 +85,24 @@ t_list	*env_ex_nihilo(void)
 t_list	*env_init(char **env)
 {
 	t_list	*envi;
-	int		tmp;
-	char	*tmp2;
+	int		shlvl;
+	char	*buff;
 
 	if (!*env)
-	{
-		envi = env_ex_nihilo();
-		return (envi);
-	}
+		return (env_ex_nihilo());
 	envi = get_env(env);
 	unset_env("OLDPWD", envi);
-	tmp2 = get_env_value(envi, "SHLVL");
-	tmp = ft_atoi(tmp2);
-	ft_strdel(&tmp2);
-	tmp++;
-	tmp2 = ft_itoa(tmp);
-	set_env("SHLVL", tmp2, &envi);
-	ft_strdel(&tmp2);
+	unset_env("EDITOR", envi);
+	set_env("SHELL", "minishell", &envi);
+	buff = get_env_value(envi, "SHLVL");
+	shlvl = ft_atoi(buff);
+	ft_strdel(&buff);
+	buff = get_cdir(envi);
+	set_env("_", ft_strjoin(ft_strncpy(buff, buff ,ft_strlen(buff) - 1), "/minishell"), &envi);
+	ft_strdel(&buff);
+	shlvl++;
+	buff = ft_itoa(shlvl);
+	set_env("SHLVL", buff, &envi);
+	ft_strdel(&buff);
 	return (envi);
 }
