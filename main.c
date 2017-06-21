@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:36:36 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/16 21:15:12 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/21 14:58:47 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,21 @@ t_list	*ft_lstdup(t_list *lst)
 	return (start);
 }
 
-void	minishell(char **environ, int ret, char *line)
+void	minishell(t_list *env, int ret, char *line)
 {
-	t_list	*lst;
 	char	**args;
 	int		i;
 
-	lst = env_init(environ);
 	while (42)
 	{
-		pwd_checker(lst);
-		put_prompt(lst);
+		pwd_checker(env);
+		put_prompt(env);
 		get_next_line(0, &line);
 		args = ft_strsplit(line, ';');
 		i = 0;
 		while (args[i])
 		{
-			ret = read_entry(args[i], &lst, ret);
+			ret = read_entry(args[i], &env, ret);
 			i++;
 		}
 		free_tab(args);
@@ -65,6 +63,7 @@ void	minishell(char **environ, int ret, char *line)
 int		main(int argc, char **argv, char **environ)
 {
 	char	*line;
+	t_list	*env;
 	int		ret;
 
 	if (argc > 1)
@@ -76,6 +75,8 @@ int		main(int argc, char **argv, char **environ)
 	ret = 0;
 	line = NULL;
 	signal(SIGINT, SIG_IGN);
-	minishell(environ, ret, line);
+	env = env_init(environ);
+	env_init_2(*argv, &env);
+	minishell(env, ret, line);
 	return (0);
 }

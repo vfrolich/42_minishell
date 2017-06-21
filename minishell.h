@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 16:39:08 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/16 21:15:30 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/21 14:23:45 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct	s_env{
 
 t_list			*env_ex_nihilo();
 t_list			*env_init(char **env);
+void			env_init_2(char *arg, t_list **env);
 char			*get_cdir();
 char			*home_handle(t_list	*env);
 void			put_prompt(t_list *env);

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   leaks_handle.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentinfrolich <valentinfrolich@student.42.fr>+#+  +:+       +#+        */
+/*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 14:38:49 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/16 23:48:16 by valentinfrolich  ###   ########.fr       */
+/*   Updated: 2017/06/21 15:02:04 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
 void	free_tab(char **tab)

@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/30 13:59:08 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/17 02:05:22 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/21 15:02:25 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ t_list	*set_envvar(char *field, char *value)
 	free(envvar);
 	return (new);
 }
+
 t_list	*env_ex_nihilo(void)
 {
 	t_list	*lst;
@@ -79,6 +80,7 @@ t_list	*env_ex_nihilo(void)
 	tmp = ft_strjoin_free_one(&tmp2, "/minishell");
 	new = set_envvar("_", tmp);
 	lst_add(new, &lst);
+	ft_strdel(&tmp);
 	return (lst);
 }
 
@@ -94,15 +96,16 @@ t_list	*env_init(char **env)
 	unset_env("OLDPWD", envi);
 	unset_env("EDITOR", envi);
 	set_env("SHELL", "minishell", &envi);
-	buff = get_env_value(envi, "SHLVL");
-	shlvl = ft_atoi(buff);
-	ft_strdel(&buff);
-	buff = get_cdir(envi);
-	set_env("_", ft_strjoin(ft_strncpy(buff, buff ,ft_strlen(buff) - 1), "/minishell"), &envi);
-	ft_strdel(&buff);
-	shlvl++;
-	buff = ft_itoa(shlvl);
-	set_env("SHLVL", buff, &envi);
-	ft_strdel(&buff);
+	if (!(buff = get_env_value(envi, "SHLVL")))
+		set_env("SHLVL", "1", &envi);
+	else
+	{
+		shlvl = ft_atoi(buff);
+		ft_strdel(&buff);
+		shlvl++;
+		buff = ft_itoa(shlvl);
+		set_env("SHLVL", buff, &envi);
+		ft_strdel(&buff);
+	}
 	return (envi);
 }

@@ -6,9 +6,10 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 12:28:26 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/17 00:26:51 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/06/21 15:07:54 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
 int		process_manager(char *path, char **arg, char **env)

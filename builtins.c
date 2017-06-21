@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentinfrolich <valentinfrolich@student.42.fr>+#+  +:+       +#+        */
+/*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 15:42:14 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/06/16 23:48:03 by valentinfrolich  ###   ########.fr       */
+/*   Updated: 2017/06/21 15:01:15 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
 t_list	*add_to_env(char ***arg, t_list *env)
